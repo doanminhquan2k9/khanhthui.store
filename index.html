@@ -1,154 +1,306 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bảo Trì Website</title>
+    <title>Website Bán Hàng Hỗ Trợ Dịch Vụ</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            text-align: center;
-            padding: 50px;
-            position: relative;
-            min-height: 100vh;
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            display: inline-block;
-            margin-top: 50px;
-            max-width: 600px;
-        }
-        h1 {
-            color: #343a40;
-        }
-        p {
-            color: #6c757d;
-        }
-        .highlight {
-            color: #007bff;
-            font-weight: bold;
-        }
-        .loader {
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid #007bff;
-            width: 120px;
-            height: 120px;
-            animation: spin 2s linear infinite;
-            margin: 0 auto 30px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .account-info {
-            margin-top: 20px;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #4a148c, #ff6f00);
+            color: #fff;
             padding: 20px;
-            background-color: #e9ecef;
-            border-radius: 10px;
-            text-align: left;
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
-            display: none;
         }
-        .account-info h2 {
-            color: #007bff;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card img:hover {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #ffeb3b;
+        }
+
+        .price {
+            font-size: 1.4em;
+            color: #ff4081;
+            font-weight: bold;
             margin-bottom: 15px;
         }
-        .account-info p {
-            margin: 5px 0;
+
+        .contact-form {
+            margin-top: 40px;
+            padding: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
-        .account-info .highlight {
-            cursor: pointer;
-            color: #007bff;
-            font-weight: bold;
-            text-decoration: underline;
+
+        .contact-form h2 {
+            margin-bottom: 20px;
+            color: #ffeb3b;
+            text-align: center;
         }
-        .toggle-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
+
+        .contact-form input,
+        .contact-form select,
+        .contact-form button {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #555;
             border-radius: 5px;
+            background-color: #2c2c2c;
+            color: #e0e0e0;
+            font-size: 1em;
+        }
+
+        .contact-form button {
+            background-color: #ff4081;
+            color: white;
+            border: none;
             cursor: pointer;
-            font-size: 16px;
-        }
-        .toggle-button:hover {
-            background-color: #0056b3;
-        }
-        .chat-bubbles {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .chat-bubble {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #007bff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-size: 30px;
-            text-decoration: none;
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
             transition: background-color 0.3s ease;
         }
-        .chat-bubble:hover {
-            background-color: #0056b3;
+
+        .contact-form button:hover {
+            background-color: #f50057;
         }
-        .chat-bubble img {
-            width: 70%;
-            height: 70%;
+
+        .review {
+            margin-top: 40px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
+
+        .review p {
+            margin: 10px 0;
+            font-size: 1em;
+        }
+
+        .payment-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            border: 1px solid #555;
+        }
+
+        .thank-you-message {
+            display: none;
+            text-align: center;
+            margin-top: 40px;
+            background-color: #ffeb3b;
+            color: #000;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1.2em;
+        }
+
+        .instructions {
+            background-color: #1e1e1e;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
     </style>
-    <script>
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Đã sao chép số tài khoản: ' + text);
-            }).catch(err => {
-                console.error('Không thể sao chép', err);
-            });
-        }
-        function toggleAccountInfo() {
-            var accountInfo = document.getElementById('account-info');
-            if (accountInfo.style.display === 'none' || accountInfo.style.display === '') {
-                accountInfo.style.display = 'block';
-            } else {
-                accountInfo.style.display = 'none';
-            }
-        }
-    </script>
 </head>
 <body>
-    <div class="container">
-        <div class="loader"></div>
-        <h1>Chúng Tôi Đang Bảo Trì</h1>
-        <p>Để nâng cấp website, chúng tôi đang tiến hành bảo trì. Dự kiến sẽ xong trong ngày mai, ngày <span class="highlight">8/8/2024</span>.</p>
-        <p>Cảm ơn bạn đã kiên nhẫn!</p>
-        <button class="toggle-button" onclick="toggleAccountInfo()">Số Tài Khoản Bấm Tại Đây</button>
-        <div class="account-info" id="account-info">
-            <h2>Thông Tin Thanh Toán</h2>
-            <p>Số tài khoản: <span class="highlight" onclick="copyToClipboard('9704229203528138715')">9704229203528138715</span></p>
-            <p>Chủ tài khoản: DOAN ANH MINH</p>
-            <p>Ngân hàng: MB Bank</p>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <h1>Website Bán Hàng Hỗ Trợ Dịch Vụ</h1>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+            <img src="https://i.imgur.com/0ZfqWt8.jpeg" alt="Locket Gold">
+            <div class="product-info">
+                <h2>Locket Gold</h2>
+                <p class="price">Giá: 30.000vnd</p>
+            </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+            <img src="https://i.imgur.com/uwij0h5.jpeg" alt="Lên Tích Xanh Facebook">
+            <div class="product-info">
+                <h2>Lên Tích Xanh Facebook</h2>
+                <p class="price">Giá: 1.000.000vnd</p>
+            </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+            <img src="https://i.imgur.com/cxBPFfW.jpeg" alt="Tạo Website">
+            <div class="product-info">
+                <h2>Tạo Website</h2>
+                <p class="price">Giá: 500.000 - 1.000.000</p>
+            </div>
         </div>
     </div>
-    <div class="chat-bubbles">
-        <a class="chat-bubble" href="https://t.me/Vanduy0982" target="_blank" title="Liên hệ qua Telegram">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
-        </a>
-        <a class="chat-bubble" href="https://www.facebook.com/jivan.makabi" target="_blank" title="Liên hệ qua Facebook">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
-        </a>
+
+    <!-- Contact Form -->
+    <div class="contact-form">
+        <h2>Thông tin liên hệ</h2>
+        <form id="orderForm" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Tên người mua" required>
+            <input type="url" name="facebook" placeholder="Link Facebook người mua" required>
+            <select name="product" required>
+                <option value="Locket Gold - 30.000vnd">Locket Gold - 30.000vnd</option>
+                <option value="Lên Tích Xanh Facebook - 1.000.000vnd">Lên Tích Xanh Facebook - 1.000.000vnd</option>
+                <option value="Tạo Website - 500.000 - 1.000.000">Tạo Website - 500.000 - 1.000.000</option>
+            </select>
+            <input type="file" name="bill" accept="image/*" required>
+            <div class="payment-info">
+                <h3>Thông tin thanh toán:</h3>
+                <p>Số tài khoản: <strong>9704229203528138715</strong></p>
+                <p>Chủ tài khoản: <strong>DOAN ANH MINH</strong></p>
+                <p>Ngân hàng: <strong>MB Bank</strong></p>
+            </div>
+            <button type="submit">Gửi</button>
+        </form>
+        <div class="instructions">
+            <p>CẢM ƠN BẠN ĐÃ TIN TƯỞNG VÀ SỬ DỤNG DỊCH VỤ.</p>
+        </div>
+        <div class="thank-you-message" id="thankYouMessage">Cảm ơn bạn đã sử dụng dịch vụ! Đơn của bạn sẽ được xử lý trong khoảng 15 phút đến 24 giờ.</div>
     </div>
+
+    <!-- Review Section -->
+    <div class="review">
+        <h2>Đánh giá của khách hàng</h2>
+        <p class="ceo">CEO - Công ty G COM</p>
+        <p>“Dịch vụ rất tốt, sản phẩm chất lượng cao!”</p>
+    </div>
+</div>
+
+<script>
+    // Hiển thị thông báo cảm ơn khi gửi đơn
+    document.getElementById('orderForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Ngăn chặn hành động gửi mặc định
+
+        // Tạo một FormData object từ form
+        const formData = new FormData(this);
+
+        // Gửi dữ liệu đến Telegram bot
+        const token = '7627119299:AAGR7PBbL3BFNIYlalcJiArSLly0aQirwLI'; // Thay thế bằng token của bạn
+        const chat_id = '-1002281379443'; // Thay thế bằng chat_id của bạn
+
+        // Lấy thông tin từ FormData
+        const name = formData.get('name');
+        const facebook = formData.get('facebook');
+        const product = formData.get('product');
+        const bill = formData.get('bill');
+
+        // Gửi thông điệp đến bot
+        const message = `Tên người mua: ${name}\nLink Facebook: ${facebook}\nSản phẩm: ${product}`;
+        const telegramApiUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
+
+        fetch(telegramApiUrl)
+            .then(response => {
+                if (!response.ok) throw new Error('Error sending message');
+                return response.json();
+            })
+            .then(data => {
+                console.log('Message sent:', data);
+                // Gửi ảnh biên nhận
+                return sendReceipt(bill);
+            })
+            .then(receiptResponse => {
+                console.log('Receipt sent:', receiptResponse);
+                document.getElementById('thankYouMessage').style.display = 'block'; // Hiển thị thông báo cảm ơn
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+    function sendReceipt(bill) {
+        return new Promise((resolve, reject) => {
+            const token = '7623590164:AAEoVKHVYlZ0UcDoKxcPCiSc_FOEAT_tC5s';
+            const chat_id = '-1002281379443';
+
+            const formData = new FormData();
+            formData.append('chat_id', chat_id);
+            formData.append('document', bill);
+
+            fetch(`https://api.telegram.org/bot${token}/sendDocument`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Error sending receipt');
+                return response.json();
+            })
+            .then(data => resolve(data))
+            .catch(error => reject(error));
+        });
+    }
+</script>
+
 </body>
 </html>
+
+
+<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="8a1a35d2-bc5f-4f07-b5f8-37b712d5665e";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
